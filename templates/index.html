@@ -2,38 +2,97 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Certificados Expert Radiologia</title>
+    <title>Gerar Certificado</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #06183d, #0b3b70);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 460px;
+            text-align: center;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-size: 28px;
+        }
+
+        h2 {
+            margin-bottom: 28px;
+            font-size: 22px;
+            color: #d7ecff;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #1f8cff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0f6fd1;
+        }
+
+        .footer {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #bcd7f0;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Expert Radiologia</h1>
+    <div class="card">
+        <h1>Expert Radiologia</h1>
 
-    <h2>Escolha o curso</h2>
+        {% if curso_selecionado %}
+            <h2>{{ curso_selecionado }}</h2>
 
-    {% for slug_item, nome_curso in cursos.items() %}
-        <p>
-            <a href="/curso/{{ slug_item }}">{{ nome_curso }}</a>
-        </p>
-    {% endfor %}
+            <form action="/gerar" method="POST">
+                <input type="hidden" name="curso" value="{{ curso_selecionado }}">
+                <input type="email" name="email" placeholder="Digite seu e-mail" required>
+                <button type="submit">Gerar Certificado</button>
+            </form>
 
-    <hr>
-
-    {% if curso_selecionado %}
-        <h2>Gerar certificado</h2>
-        <h3>{{ curso_selecionado }}</h3>
-
-        <form action="/gerar" method="POST">
-            <input type="hidden" name="curso" value="{{ curso_selecionado }}">
-
-            <input type="email" name="email" placeholder="Digite seu e-mail" required>
-
-            <br><br>
-
-            <button type="submit">Gerar certificado</button>
-        </form>
-    {% else %}
-        <p>Clique no nome do curso para abrir o formulário.</p>
-    {% endif %}
+            <div class="footer">
+                Informe o mesmo e-mail usado na compra.
+            </div>
+        {% else %}
+            <h2>Sistema de Certificados</h2>
+            <p>Acesse o link específico do seu curso.</p>
+        {% endif %}
+    </div>
 
 </body>
 </html>
