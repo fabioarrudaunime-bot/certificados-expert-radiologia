@@ -7,10 +7,11 @@ from gerador_certificado import gerar_pdf
 
 app = Flask(__name__)
 
-CURSOS = {
+PRODUTOS_HOTMART = {
     "Angiotomografia": "Angiotomografia",
     "Ressonância Magnética": "Ressonância Magnética",
-    "Tomografia 2.0 + Simulador": "Tomografia 2.0 + Simulador"
+    "Tomografia 2.0 + Simulador": "Tomografia 2.0 + Simulador",
+    "Produto test postback2": "Ressonância Magnética"
 }
 
 PRODUTOS_HOTMART = {
