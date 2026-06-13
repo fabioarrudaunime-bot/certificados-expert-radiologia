@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Certificados Expert Radiologia</title>
+</head>
+<body>
+
+    <h1>Expert Radiologia</h1>
+
+    <h2>Escolha o curso</h2>
+
+    {% for slug_item, nome_curso in cursos.items() %}
+        <p>
+            <a href="/curso/{{ slug_item }}">{{ nome_curso }}</a>
+        </p>
+    {% endfor %}
+
+    <hr>
+
+    {% if curso_selecionado %}
+        <h2>Gerar certificado</h2>
+        <h3>{{ curso_selecionado }}</h3>
+
+        <form action="/gerar" method="POST">
+            <input type="hidden" name="curso" value="{{ curso_selecionado }}">
+
+            <input type="email" name="email" placeholder="Digite seu e-mail" required>
+
+            <br><br>
+
+            <button type="submit">Gerar certificado</button>
+        </form>
+    {% else %}
+        <p>Clique no nome do curso para abrir o formulário.</p>
+    {% endif %}
+
+</body>
+</html>
