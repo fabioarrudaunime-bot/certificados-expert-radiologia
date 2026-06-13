@@ -25,7 +25,7 @@ def conectar():
         host=os.getenv("DB_HOST", "aws-1-us-east-1.pooler.supabase.com"),
         database=os.getenv("DB_NAME", "postgres"),
         user=os.getenv("DB_USER", "postgres.cwkdffwkkdgdcvwzparh"),
-        password=os.getenv("DB_PASSWORD", "SUA_SENHA_AQUI"),
+        password=os.getenv("DB_PASSWORD"),
         port=os.getenv("DB_PORT", "5432"),
         sslmode="require"
     )
@@ -54,6 +54,14 @@ def pagina_curso(curso):
 
 @app.route("/webhook/hotmart", methods=["POST"])
 def webhook_hotmart():
+    print("====================================")
+    print("WEBHOOK HOTMART RECEBIDO")
+    print("HEADERS:", dict(request.headers))
+    print("RAW BODY:", request.data.decode("utf-8", errors="ignore"))
+    print("FORM:", request.form.to_dict())
+    print("JSON:", request.get_json(silent=True))
+    print("====================================")
+
     dados = request.get_json(silent=True)
 
     if not dados:
@@ -161,7 +169,7 @@ def gerar():
     cursor.execute("""
         SELECT id, nome, email, curso
         FROM alunos_autorizados
-        WHERE LOWER(email) = %s 
+        WHERE LOWER(email) = %s
         AND curso = %s
         AND status_pagamento = 'aprovado'
         LIMIT 1
