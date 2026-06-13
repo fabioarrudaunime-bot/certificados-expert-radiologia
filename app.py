@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, send_file, jsonify
 import psycopg2
 import tempfile
 import os
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from gerador_certificado import gerar_pdf
 
 app = Flask(__name__)
@@ -57,9 +57,6 @@ def pagina_curso(curso):
 def webhook_hotmart():
     print("====================================")
     print("WEBHOOK HOTMART RECEBIDO")
-    print("HEADERS:", dict(request.headers))
-    print("RAW BODY:", request.data.decode("utf-8", errors="ignore"))
-    print("FORM:", request.form.to_dict())
     print("JSON:", request.get_json(silent=True))
     print("====================================")
 
@@ -83,6 +80,9 @@ def webhook_hotmart():
     email = buyer.get("email")
     produto_hotmart = product.get("name")
     data_compra = purchase.get("approved_date") or purchase.get("order_date")
+
+    if isinstance(data_compra, (int, float)):
+        data_compra = datetime.fromtimestamp(data_compra / 1000)
 
     if not nome or not email or not produto_hotmart:
         return jsonify({
