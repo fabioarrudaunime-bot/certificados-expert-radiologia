@@ -53,6 +53,33 @@ def pagina_curso(curso):
     )
 
 
+@app.route("/ressonancia")
+def pagina_ressonancia():
+    return render_template(
+        "index.html",
+        cursos=CURSOS,
+        curso_selecionado="Ressonância Magnética"
+    )
+
+
+@app.route("/angiotomografia")
+def pagina_angiotomografia():
+    return render_template(
+        "index.html",
+        cursos=CURSOS,
+        curso_selecionado="Angiotomografia"
+    )
+
+
+@app.route("/tomografia20")
+def pagina_tomografia20():
+    return render_template(
+        "index.html",
+        cursos=CURSOS,
+        curso_selecionado="Tomografia 2.0 + Simulador"
+    )
+
+
 @app.route("/webhook/hotmart", methods=["POST"])
 def webhook_hotmart():
     print("====================================")
