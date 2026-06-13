@@ -15,8 +15,13 @@ CURSOS = {
 
 PRODUTOS_HOTMART = {
     "Angiotomografia": "Angiotomografia",
+    "Curso de AngioTomografia": "Angiotomografia",
+
     "Ressonância Magnética": "Ressonância Magnética",
+    "Curso de Ressonância + Simulador": "Ressonância Magnética",
+
     "Tomografia 2.0 + Simulador": "Tomografia 2.0 + Simulador",
+
     "Produto test postback2": "Ressonância Magnética"
 }
 
